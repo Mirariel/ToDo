@@ -1,10 +1,10 @@
 import './App.css'
+import ToDoList from './components/ToDoList'
 
-function App() {
-
+function App () {
   return (
     <>
-    
+      <ToDoList />
     </>
   )
 }
