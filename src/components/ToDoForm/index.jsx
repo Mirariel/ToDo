@@ -12,7 +12,7 @@ const initialValues = {
 
 function ToDoForm ({ addNewToDo }) {
   const handleAddToDo = (values, formikBag) => {
-    if (values !== '') {
+    if (values.task.trim() !== '') {
       addNewToDo({ ...values, id: uuidv4(), isCompleted: false })
     }
     formikBag.resetForm()
