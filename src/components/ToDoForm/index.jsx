@@ -1,8 +1,10 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik'
-import { TO_DO_VALIDATION_SCHEMA } from '../../utils/validationSchema'
-import { addToDo } from '../../store/slices/toDoSlice'
 import { connect } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
+
+import { TO_DO_VALIDATION_SCHEMA } from '../../utils/validationSchema'
+import { addToDo } from '../../store/slices/toDoSlice'
+import styles from './ToDoForm.module.sass'
 
 const initialValues = {
   task: ''
@@ -10,7 +12,9 @@ const initialValues = {
 
 function ToDoForm ({ addNewToDo }) {
   const handleAddToDo = (values, formikBag) => {
-    addNewToDo({ ...values, id: uuidv4(), isCompleted: false })
+    if (values !== '') {
+      addNewToDo({ ...values, id: uuidv4(), isCompleted: false })
+    }
     formikBag.resetForm()
   }
 
@@ -21,12 +25,23 @@ function ToDoForm ({ addNewToDo }) {
       validationSchema={TO_DO_VALIDATION_SCHEMA}
     >
       {formikProps => (
-        <Form>
-          <label>
-            <Field type='text' name='task' />
-            <ErrorMessage name='task' component='div' />
+        <Form className={styles.container}>
+          <label className={styles.label}>
+            <Field
+              type='text'
+              name='task'
+              placeholder='Create todo'
+              className={styles.input}
+            />
+            <ErrorMessage
+              name='task'
+              component='div'
+              className={styles.error}
+            />
           </label>
-          <button type='submit'>Add to do</button>
+          <button className={styles.submit} type='submit'>
+            +
+          </button>
         </Form>
       )}
     </Formik>
