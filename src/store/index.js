@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import toDoReducer from './slices/toDoSlice'
+import weatherReducer from './slices/weatherSlice'
 
 const store = configureStore({
   reducer: {
-    toDoList: toDoReducer
+    toDoList: toDoReducer,
+    currentWeather: weatherReducer
   }
 })
 

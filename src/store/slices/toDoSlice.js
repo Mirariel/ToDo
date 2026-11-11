@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, isPending } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { v4 as uuidv4 } from 'uuid'
 
 const axiosInstance = axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com/'
