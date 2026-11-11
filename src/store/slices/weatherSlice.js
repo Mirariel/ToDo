@@ -14,11 +14,14 @@ const initialState = {
 export const getWeatherThunk = createAsyncThunk(
   'weather/getWeather',
   async (payload, thunkAPI) => {
-    const { data } = await axiosInstance.get(
-      '/v1/forecast?latitude=50.061428&longitude=19.936585&current=temperature_2m,wind_speed_10m'
-    )
-    console.log('data :>> ', data)
-    return data
+    try {
+      const { data } = await axiosInstance.get(
+        '/v1/forecast?latitude=50.061428&longitude=19.936585&current=temperature_2m,wind_speed_10m'
+      )
+      return data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ message: err.message })
+    }
   }
 )
 

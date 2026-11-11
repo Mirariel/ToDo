@@ -8,12 +8,12 @@ function WeatherWidget ({ weather, isFetching, error, getWeather }) {
     getWeather()
   }, [])
 
-  if (isFetching || !weather) {
-    return <div>loading...</div>
+  if (error) {
+    return <div className={styles.weatherContainer}>Error!!!</div>
   }
 
-  if (error) {
-    return <div>Error!!!</div>
+  if (isFetching || !weather) {
+    return <div className={styles.weatherContainer}>loading...</div>
   }
 
   if (!isFetching && !error) {

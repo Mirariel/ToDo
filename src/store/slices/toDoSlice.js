@@ -14,8 +14,12 @@ const initialState = {
 export const getTaskThunk = createAsyncThunk(
   'toDo/getToDo',
   async (payload, thunkAPI) => {
-    const { data } = await axiosInstance.get('/todos?_limit=8')
-    return data
+    try {
+      const { data } = await axiosInstance.get('/todos?_limit=8')
+      return data
+    } catch (err) {
+      return thunkAPI.rejectWithValue({ message: err.message })
+    }
   }
 )
 
@@ -27,7 +31,7 @@ const toDoSlice = createSlice({
       state.toDos.push(payload)
     },
     deleteToDo: (state, { payload }) => {
-      state.toDos = state.toDo.filter(t => t.id !== payload)
+      state.toDos = state.toDos.filter(t => t.id !== payload)
     },
     completeToDo: (state, { payload: { id, completed } }) => {
       state.toDos = state.toDos.map(t =>
